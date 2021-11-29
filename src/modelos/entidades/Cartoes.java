@@ -12,31 +12,47 @@ import java.util.Date;
  * @author luisg
  */
 import java.text.SimpleDateFormat;
-public class Cartao {
-    private String nomeDoCartao = "";
+public class Cartoes {
+    private int id = 0;
+    private String bandeiraDoCartao = "";
     private String numeroDoCartao = "";
     private String nomeDoTitular = "";
     private String CCV = "";
     private double limiteDoCartao = 0.00;
     private Date dataDeVencimento;
-    private Date dataDeFechamento ;
+    private Date dataDeFechamento;
+    private Date dataDePagamento;
     private static final String formatoDeDataFechamento = "dd/MM";
     private static final String formatoDeVencimentoDoCartao = "MM/yy";
     private SimpleDateFormat formatadorDeVencimento = new SimpleDateFormat(formatoDeVencimentoDoCartao);
     private SimpleDateFormat formatadorDeFechamento = new SimpleDateFormat(formatoDeDataFechamento);
-     
+    
 
-    public Cartao() {
+    public Cartoes() {
+    }
+
+    public Cartoes(int id,String bandeiraDoCartao, String numeroDoCartao, String nomeDoTitular, String CCV, double limite, Date dataDeVencimento, Date dataDeFechamento,
+            Date dataDePagamento) {
+        this.id = id;
+        this.bandeiraDoCartao = bandeiraDoCartao;
+        this.numeroDoCartao = numeroDoCartao;
+        this.nomeDoTitular = nomeDoTitular;
+        this.CCV = CCV;
+        this.limiteDoCartao = limite;
+        this.dataDeVencimento = dataDeVencimento;
+        this.dataDeFechamento = dataDeFechamento;
+        this.dataDePagamento = dataDePagamento;
+
+    }
+
+    public String getBandeiraDoCartao() {
+        return bandeiraDoCartao;
+    }
+
+    public void setBandeiraDoCartao(String bandeiraDoCartao) {
+        this.bandeiraDoCartao = bandeiraDoCartao;
     }
    
-
-    public String getNomeDoCartao() {
-        return nomeDoCartao;
-    }
-
-    public void setNomeDoCartao(String nomeDoCartao) {
-        this.nomeDoCartao = nomeDoCartao;
-    }
 
     public String getNumeroDoCartao() {
         return numeroDoCartao;
@@ -78,7 +94,7 @@ public class Cartao {
         try {
             this.dataDeFechamento = formatadorDeFechamento.parse(dataDeFechamento);
             
-        } catch (Exception e) {
+        } catch (Exception erro) {
         }
     }
 
@@ -89,21 +105,44 @@ public class Cartao {
     public void setDataDeVencimento( String dataDeVencimento) {
         try {
              this.dataDeVencimento = formatadorDeVencimento.parse(dataDeVencimento);
-        } catch (Exception e) {
+        } catch (Exception erro) {
         }
     }
+
+    public Date getDataDePagamento() {
+        return dataDePagamento;
+    }
+
+    public void setDataDePagamento( String  dataDePagamento) {
+        try {
+            this.dataDePagamento = formatadorDeFechamento.parse(dataDePagamento);
+        } catch (Exception erro) {
+        }
+        
+    }
     
+        /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
     @Override
     public String toString() {
-        return  "Dados do Cartão : \n" + " NomeDoCartao = " + nomeDoCartao + "\n " +
-                "Número Do Cartao = " + numeroDoCartao + "\n " + 
-                "Nome do Titular = " + nomeDoTitular + "\n " + 
-                "CCV = " + CCV + "\n "+
-                "Limite Do Cartao = " + limiteDoCartao + "\n" +
-                "Data de Vencimento do Cartão = " + formatadorDeVencimento.format(dataDeVencimento) +  "\n" +
-                "Data de Fechamento = " + formatadorDeFechamento.format(dataDeFechamento);
+        return  id + ";" + bandeiraDoCartao + ";" + numeroDoCartao + ";" + nomeDoTitular +
+                ";" + CCV + ";" + limiteDoCartao + ";" +formatadorDeVencimento.format(dataDeVencimento) +";" + formatadorDeFechamento.format(dataDeFechamento) +
+                ";" + formatadorDeFechamento.format(dataDePagamento);
     }
-   
+
+
+
 
   
      

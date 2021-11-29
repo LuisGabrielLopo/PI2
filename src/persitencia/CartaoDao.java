@@ -5,13 +5,18 @@
  */
 package persitencia;
 import modelos.interfaces.ICartaoDao;
-import modelos.entidades.Cartao;
+import modelos.entidades.Cartoes;
 import java.util.ArrayList;
 //Bibliotecas para manipulação de arquivo texto no disco
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
 /**
  *
  * @author luisg
@@ -24,7 +29,7 @@ public class CartaoDao implements ICartaoDao{
     }
 
     @Override
-    public void incluir(Cartao objeto) throws Exception {
+    public void incluir(Cartoes objeto) throws Exception {
         try {
             FileWriter fw = new FileWriter(nomeDoArquivoDeDadosNoDisco, true);
             //Criar o Buffer
@@ -40,24 +45,142 @@ public class CartaoDao implements ICartaoDao{
     }
 
     @Override
-    public void alterar(Cartao objeto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void alterar(Cartoes objeto) throws Exception {
+       ArrayList<Cartoes> arrayDoscartoes = listagem();
+       FileWriter fw = new FileWriter(nomeDoArquivoDeDadosNoDisco);
+       BufferedWriter bw = new BufferedWriter(fw);
+       
+        try {
+            //Excluir
+            for (int pos = 0; pos < arrayDoscartoes.size(); pos++ ){
+                if(objeto.getId() != arrayDoscartoes.get(pos).getId()){
+                    bw.write(arrayDoscartoes.get(pos).toString() + "\n");
+                }
+            }
+            bw.write(objeto.toString() + "\n");
+            
+            //fecha o arquivo
+            bw.close();
+            
+        } catch (Exception erro) {
+            throw erro;
+        }
     }
 
     @Override
-    public void apagarPorNome(String nomeDoCartao) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void apagarPorId(int id) throws Exception {
+        try {
+            ArrayList<Cartoes> arrayDosCartoes = listagem();
+            
+            //Criar o arquivo
+            FileWriter fw = new FileWriter(nomeDoArquivoDeDadosNoDisco);
+            
+            //Criar o buffer do arquivo
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            for (int pos = 0; pos < arrayDosCartoes.size(); pos ++){
+                if (id != arrayDosCartoes.get(pos).getId()){
+                    bw.write(arrayDosCartoes.get(pos).toString() + "\n");
+                }
+            }
+            
+            bw.close();
+            
+        } catch (Exception erro) {
+            throw erro;
+        }
     }
 
     @Override
-    public Cartao consultarPorNome(String nomeDoCartao) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cartoes consultarPorId(int id) throws Exception {
+        Cartoes aux = new Cartoes();
+        FileReader fr = new FileReader(nomeDoArquivoDeDadosNoDisco);
+        BufferedReader br = new BufferedReader(fr);
+     
+        try {
+            String linha = "";
+            while ((linha = br.readLine()) != null) {
+            String vetorString[] = linha.split(";");
+            int identificador  = Integer.parseInt(vetorString[0]);
+            String bandeira = vetorString[1];
+            String numeroDoCartao = vetorString[2];
+            String nomeDoTitular = vetorString[3];
+            String CCv = vetorString[4];
+            double limite = Double.parseDouble(vetorString[5]);
+            aux.setId(identificador);
+            aux.setBandeiraDoCartao(bandeira);
+            aux.setNumeroDoCartao(numeroDoCartao);
+            aux.setNomeDoTitular(nomeDoTitular);
+            aux.setCCV(CCv);
+            aux.setLimiteDoCartao(limite);
+            if(aux.getId() == id){
+                return aux ;
+            }
+        }
+          aux = null;
+          return aux;
+            
+        } catch (Exception erro) {
+            throw erro;
+        } finally{
+            br.close();
+        }
+        
+     
     }
 
     @Override
-    public ArrayList<Cartao> listagem() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Cartoes> listagem() throws Exception {
+        try {
+            ArrayList<Cartoes> arrayDosCartoes = new ArrayList<Cartoes>();
+            
+            FileReader fr = new FileReader(nomeDoArquivoDeDadosNoDisco);
+            BufferedReader br = new BufferedReader(fr);
+            
+            
+            String linha = "";
+            
+            while((linha = br.readLine()) != null) {
+              Cartoes aux = new Cartoes();
+              String vetorString[] = linha.split(";");
+              int identificador = Integer.parseInt(vetorString[0]);
+              String bandeira = vetorString[1];
+              String numeroDoCartao = vetorString[2];
+              String nomeDoTitular = vetorString[3];
+              String CCv = vetorString[4];
+              double limite = Double.parseDouble(vetorString[5]);
+              aux.setId(identificador);
+              aux.setBandeiraDoCartao(bandeira);
+              aux.setNumeroDoCartao(numeroDoCartao);
+              aux.setNomeDoTitular(nomeDoTitular);
+              aux.setCCV(CCv);
+              aux.setLimiteDoCartao(limite);  
+             
+              arrayDosCartoes.add(aux);
+                
+            }
+            
+            br.close();
+            Collections.sort(arrayDosCartoes, new Comparator() {
+                public int compare(Object o1, Object o2) {
+                    Cartoes c1 = (Cartoes) o1;
+                    Cartoes c2 = (Cartoes) o2;
+                    if(c1.getId() > c2.getId()){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+
+                }
+            });
+            
+           
+            return arrayDosCartoes;
+        } catch (Exception erro) {
+            throw erro;
+        }
     }
+
 
     
 }

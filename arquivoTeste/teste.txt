@@ -1,8 +1,0 @@
-Dados do Cartão : 
- NomeDoCartao = cartão 1
- Número Do Cartao = 0000 0000 0000 0000
- Nome do Titular = Dominic Toretto
- CCV = 000
- Limite Do Cartao = 100000.0
-Data de Vencimento do Cartão = 11/25
-Data de Fechamento = 11/11

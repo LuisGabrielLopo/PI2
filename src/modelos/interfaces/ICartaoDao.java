@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 package modelos.interfaces;
-import modelos.entidades.Cartao;
+import modelos.entidades.Cartoes;
 import java.util.ArrayList;
 /**
  *
  * @author luisg
  */
 public interface ICartaoDao {
-        void incluir (Cartao objeto) throws Exception;
-        void alterar (Cartao objeto) throws Exception;
-        void apagarPorNome (String nomeDoCartao) throws Exception;
-        Cartao consultarPorNome (String nomeDoCartao) throws Exception;
-        ArrayList<Cartao>listagem () throws Exception;
+        void incluir (Cartoes objeto) throws Exception;
+        void alterar (Cartoes objeto) throws Exception;
+        void apagarPorId (int id) throws Exception;
+        Cartoes consultarPorId (int id ) throws Exception;
+        ArrayList<Cartoes>listagem () throws Exception;
     
 }
