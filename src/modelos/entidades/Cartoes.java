@@ -12,6 +12,8 @@ import java.util.Date;
  * @author luisg
  */
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import uteis.Util;
 public class Cartoes {
     private int id = 0;
     private String bandeiraDoCartao = "";
@@ -22,10 +24,7 @@ public class Cartoes {
     private Date dataDeVencimento;
     private Date dataDeFechamento;
     private Date dataDePagamento;
-    private static final String formatoDeDataFechamento = "dd/MM";
-    private static final String formatoDeVencimentoDoCartao = "MM/yy";
-    private SimpleDateFormat formatadorDeVencimento = new SimpleDateFormat(formatoDeVencimentoDoCartao);
-    private SimpleDateFormat formatadorDeFechamento = new SimpleDateFormat(formatoDeDataFechamento);
+    
     
 
     public Cartoes() {
@@ -90,34 +89,26 @@ public class Cartoes {
         return dataDeFechamento;
     }
 
-    public void setDataDeFechamento( String dataDeFechamento) {
-        try {
-            this.dataDeFechamento = formatadorDeFechamento.parse(dataDeFechamento);
-            
-        } catch (Exception erro) {
-        }
+    public void setDataDeFechamento( String dataDeFechamento)throws Exception {
+      this.dataDeFechamento = Util.formatoDeDataFechamentoEPagamento(dataDeFechamento);
     }
 
     public Date getDataDeVencimento() {
         return dataDeVencimento;
     }
 
-    public void setDataDeVencimento( String dataDeVencimento) {
-        try {
-             this.dataDeVencimento = formatadorDeVencimento.parse(dataDeVencimento);
-        } catch (Exception erro) {
-        }
+    public void setDataDeVencimento( String dataDeVencimento)throws Exception {
+      this.dataDeVencimento = Util.formatoDeDataVencimento(dataDeVencimento);
+        
     }
 
     public Date getDataDePagamento() {
         return dataDePagamento;
     }
 
-    public void setDataDePagamento( String  dataDePagamento) {
-        try {
-            this.dataDePagamento = formatadorDeFechamento.parse(dataDePagamento);
-        } catch (Exception erro) {
-        }
+    public void setDataDePagamento( String dataDePagamento)throws Exception {
+       
+      this.dataDePagamento = Util.formatoDeDataFechamentoEPagamento(dataDePagamento);
         
     }
     
@@ -137,16 +128,9 @@ public class Cartoes {
     @Override
     public String toString() {
         return  id + ";" + bandeiraDoCartao + ";" + numeroDoCartao + ";" + nomeDoTitular +
-                ";" + CCV + ";" + limiteDoCartao + ";" +formatadorDeVencimento.format(dataDeVencimento) +";" + formatadorDeFechamento.format(dataDeFechamento) +
-                ";" + formatadorDeFechamento.format(dataDePagamento);
+                ";" + CCV + ";" + limiteDoCartao + ";" + Util.conversorDeDateParaStringDataDeVencimento(dataDeVencimento) +";" + Util.conversorDeDateParaStringDataDeFechamentoEVencimento(dataDeFechamento) +
+                ";" + Util.conversorDeDateParaStringDataDeFechamentoEVencimento(dataDePagamento);
     }
 
-
-
-
-  
-     
-    
-    
     
 }

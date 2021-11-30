@@ -10,6 +10,7 @@ import controle.CartaoControle;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+import uteis.Util;
 
 /**
  *
@@ -43,7 +44,7 @@ public class TelaCartao extends javax.swing.JFrame {
             model.setNumRows(0);
             
             for(int pos = 0; pos < arrayDosCartoes.size(); pos++){
-                String[] saida = new String[6];
+                String[] saida = new String[9];
                 Cartoes aux = arrayDosCartoes.get(pos);
                 saida[0] = aux.getId() + "";
                 saida[1] = aux.getBandeiraDoCartao();
@@ -186,10 +187,10 @@ public class TelaCartao extends javax.swing.JFrame {
                 .addComponent(jButtonExcluir)
                 .addGap(50, 50, 50)
                 .addComponent(jButtonSair)
-                .addContainerGap(377, Short.MAX_VALUE))
+                .addContainerGap(316, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelMenuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanelMenuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 890));
 
         bandeiraDoCartaojLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         bandeiraDoCartaojLabel.setText("Bandeira do cartão :");
@@ -303,7 +304,7 @@ public class TelaCartao extends javax.swing.JFrame {
                                         .addComponent(dataDeFechamentojLabel)
                                         .addGap(18, 18, 18)
                                         .addComponent(jTextFieldDataDeFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 288, Short.MAX_VALUE)))
+                        .addGap(0, 298, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelTelaPrincipalLayout.setVerticalGroup(
@@ -340,12 +341,12 @@ public class TelaCartao extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(limiteDoCartaojLabel))
                     .addComponent(jTextFieldLimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
         );
 
-        getContentPane().add(jPanelTelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 0, 1320, 950));
+        getContentPane().add(jPanelTelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1330, 890));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -359,10 +360,12 @@ public class TelaCartao extends javax.swing.JFrame {
             String nomeDoTitular = jTextFieldNomeDoTuitular.getText();
             String ccv = jTextFieldCCV.getText();
             double limite = Double.parseDouble(jTextFieldLimite.getText());
-            //date dataDeVencimento = ;
+            Date dataDeVencimento = Util.formatoDeDataVencimento(jTextFieldDataDeVencimento.getText());
+            Date dataDeFechamento = Util.formatoDeDataFechamentoEPagamento(jTextFieldDataDeFechamento.getText());
+            Date dataDePagamento = Util.formatoDeDataFechamentoEPagamento(jTextFieldDataDePagamento.getText());
             
-           // Cartoes objCartao = new Cartoes(id, bandeiraDoCartao, numeroDoCartao, nomeDoTitular, ccv, limite, dataDeVencimento, dataDeFechamento, dataDePagamento);
-           // objCartaoControle.incluir(objCartao);
+            Cartoes objCartao = new Cartoes(id, bandeiraDoCartao, numeroDoCartao, nomeDoTitular, ccv, limite, dataDeVencimento, dataDeFechamento, dataDePagamento);
+            objCartaoControle.incluir(objCartao);
             limparTela();
             mostrarListagem();
             
@@ -391,13 +394,18 @@ public class TelaCartao extends javax.swing.JFrame {
             String nomeDoTitular = jTextFieldNomeDoTuitular.getText();
             String ccv = jTextFieldCCV.getText();
             double limite = Double.parseDouble(jTextFieldLimite.getText());
-            //Cartoes objCartoes1 = new Cartoes(id, bandeiraDoCartao, numeroDoCartao, nomeDoTitular, ccv, limite);
+            Date dataDeVencimento = Util.formatoDeDataVencimento(jTextFieldDataDeVencimento.getText());
+            Date dataDeFechamento = Util.formatoDeDataFechamentoEPagamento(jTextFieldDataDeFechamento.getText());
+            Date dataDePagamento = Util.formatoDeDataFechamentoEPagamento(jTextFieldDataDePagamento.getText());
             
-            //objCartaoControle.alterar(objCartoes1);
+            Cartoes objCartoes1 = new Cartoes(id, bandeiraDoCartao, numeroDoCartao, nomeDoTitular, ccv, limite, dataDeVencimento, dataDeFechamento, dataDePagamento);
+            
+            objCartaoControle.alterar(objCartoes1);
             limparTela();
             mostrarListagem();
            
-        } catch (Exception e) {
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
         }
      
     }//GEN-LAST:event_jButtonEditarActionPerformed
@@ -443,6 +451,9 @@ public class TelaCartao extends javax.swing.JFrame {
             jTextFieldNomeDoTuitular.setText(objCartao.getNomeDoTitular() + "");
             jTextFieldCCV.setText(objCartao.getCCV()+ "");
             jTextFieldLimite.setText(objCartao.getLimiteDoCartao()+"");
+            jTextFieldDataDeVencimento.setText(objCartao.getDataDeVencimento()+ "");
+            jTextFieldDataDeFechamento.setText(objCartao.getDataDeFechamento()+ "");
+            jTextFieldDataDePagamento.setText(objCartao.getDataDePagamento()+ "");
             
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());

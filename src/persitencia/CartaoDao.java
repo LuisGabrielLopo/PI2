@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import uteis.Util;
 
 /**
  *
@@ -96,23 +97,27 @@ public class CartaoDao implements ICartaoDao{
         Cartoes aux = new Cartoes();
         FileReader fr = new FileReader(nomeDoArquivoDeDadosNoDisco);
         BufferedReader br = new BufferedReader(fr);
+        
      
         try {
             String linha = "";
             while ((linha = br.readLine()) != null) {
             String vetorString[] = linha.split(";");
-            int identificador  = Integer.parseInt(vetorString[0]);
-            String bandeira = vetorString[1];
-            String numeroDoCartao = vetorString[2];
-            String nomeDoTitular = vetorString[3];
-            String CCv = vetorString[4];
-            double limite = Double.parseDouble(vetorString[5]);
-            aux.setId(identificador);
-            aux.setBandeiraDoCartao(bandeira);
-            aux.setNumeroDoCartao(numeroDoCartao);
-            aux.setNomeDoTitular(nomeDoTitular);
-            aux.setCCV(CCv);
-            aux.setLimiteDoCartao(limite);
+            
+            aux.setId(Integer.parseInt(vetorString[0]));
+            aux.setBandeiraDoCartao(vetorString[1]);
+            aux.setNumeroDoCartao(vetorString[2]);
+            aux.setNomeDoTitular(vetorString[3]);
+            aux.setCCV(vetorString[4]);
+            aux.setLimiteDoCartao(Double.parseDouble(vetorString[5]));
+            aux.setDataDeVencimento(vetorString[6]);
+            aux.setDataDeFechamento(vetorString[7]);
+            aux.setDataDePagamento(vetorString[8]);
+            
+            
+            
+          
+            
             if(aux.getId() == id){
                 return aux ;
             }
@@ -143,18 +148,16 @@ public class CartaoDao implements ICartaoDao{
             while((linha = br.readLine()) != null) {
               Cartoes aux = new Cartoes();
               String vetorString[] = linha.split(";");
-              int identificador = Integer.parseInt(vetorString[0]);
-              String bandeira = vetorString[1];
-              String numeroDoCartao = vetorString[2];
-              String nomeDoTitular = vetorString[3];
-              String CCv = vetorString[4];
-              double limite = Double.parseDouble(vetorString[5]);
-              aux.setId(identificador);
-              aux.setBandeiraDoCartao(bandeira);
-              aux.setNumeroDoCartao(numeroDoCartao);
-              aux.setNomeDoTitular(nomeDoTitular);
-              aux.setCCV(CCv);
-              aux.setLimiteDoCartao(limite);  
+              aux.setId(Integer.parseInt(vetorString[0]));
+              aux.setBandeiraDoCartao(vetorString[1]);
+              aux.setNumeroDoCartao(vetorString[2]);
+              aux.setNomeDoTitular(vetorString[3]);
+              aux.setCCV(vetorString[4]);
+              aux.setLimiteDoCartao(Double.parseDouble(vetorString[5]));
+              aux.setDataDeVencimento(vetorString[6]);
+              aux.setDataDeFechamento(vetorString[7]);
+              aux.setDataDePagamento(vetorString[8]);
+              
              
               arrayDosCartoes.add(aux);
                 
