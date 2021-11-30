@@ -106,6 +106,7 @@ public class TelaCartao extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelMenuLateral.setBackground(new java.awt.Color(102, 102, 255));
+        jPanelMenuLateral.setPreferredSize(new java.awt.Dimension(200, 900));
 
         jButtonIncluir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButtonIncluir.setText("Confirmar");
@@ -187,10 +188,10 @@ public class TelaCartao extends javax.swing.JFrame {
                 .addComponent(jButtonExcluir)
                 .addGap(50, 50, 50)
                 .addComponent(jButtonSair)
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelMenuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 890));
+        getContentPane().add(jPanelMenuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 900));
 
         bandeiraDoCartaojLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         bandeiraDoCartaojLabel.setText("Bandeira do cartão :");
@@ -346,7 +347,7 @@ public class TelaCartao extends javax.swing.JFrame {
                 .addGap(57, 57, 57))
         );
 
-        getContentPane().add(jPanelTelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1330, 890));
+        getContentPane().add(jPanelTelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1300, 900));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

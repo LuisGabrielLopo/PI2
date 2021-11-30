@@ -11,6 +11,7 @@ public class Util {
     private static SimpleDateFormat formatadorDeVencimento = new SimpleDateFormat(formatoDeVencimentoDoCartao);
     private static SimpleDateFormat formatadorDeFechamento = new SimpleDateFormat(formatoDeDataFechamento);
     
+    
     public static Date formatoDeDataVencimento (String data) throws ParseException{  
         return formatadorDeVencimento.parse(data);
     }
@@ -23,5 +24,6 @@ public class Util {
     public static String conversorDeDateParaStringDataDeFechamentoEVencimento (Date datas) {
         return formatadorDeFechamento.format(datas);
     }
+   
   
 }
